@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biblioteca Clássica</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-frame">
+    <header class="topbar">
+      <div class="header-top">
+        <h1>Biblioteca Clássica Municipal</h1>
+        <div id="user-profile" class="user-profile">
+          <span class="user-name"></span>
+          <span class="user-email"></span>
+        </div>
+      </div>
+      <p>Painel principal</p>
+      <button id="reset-btn" class="btn top-btn" type="button">Resetar dados locais</button>
+    </header>
+
+    <main>
+      <section id="home-view" class="panel">
+        <h2>Categorias</h2>
+        <p class="muted">Selecione uma categoria para visualizar os livros.</p>
+
+        <div id="categories-grid" class="grid-3x2"></div>
+
+        <section class="history-wrap">
+          <article class="history-card">
+            <h3>Últimos livros emprestados</h3>
+            <ul id="loan-history" class="history-list"></ul>
+          </article>
+
+          <article class="history-card">
+            <h3>Últimos livros devolvidos</h3>
+            <ul id="return-history" class="history-list"></ul>
+          </article>
+        </section>
+      </section>
+
+      <section id="category-view" class="panel hidden">
+        <div class="category-head">
+          <button id="back-btn" class="btn">← Voltar</button>
+          <h2 id="category-title">Categoria</h2>
+        </div>
+        <p class="muted">Clique em emprestar ou devolver para registrar no histórico.</p>
+
+        <ul id="book-list" class="book-list"></ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>Interface demonstrativa • Front-end isolado</small>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
