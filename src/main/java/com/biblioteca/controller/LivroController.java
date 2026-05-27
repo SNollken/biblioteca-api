@@ -1,76 +1,86 @@
 package com.biblioteca.controller;
 
-import com.biblioteca.model.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
-import java.time.ZoneId;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.biblioteca.model.Livro;
 
 @RestController
-@RequestMapping("/livro")
+@RequestMapping("/livros")
 public class LivroController {
 
     private static List<Livro> livros = new ArrayList<>();
     private static Long proximoId = 1L;
 
-    // ROTA: GET http://localhost:8080/livro/livroteste
-    @GetMapping("/listar")
+    // ROTA: GET http://localhost:9090/livros
+    @GetMapping
     public List<Livro> listarlivros() {
         return livros;
     }
 
-    // ROTA: POST http://localhost:8080/livro/cadastrar
-    @PostMapping("/cadastrar")
+    // ROTA: POST http://localhost:9090/livros
+    @PostMapping
     public String cadastrarlivro(@RequestBody Livro livro) {
-
-        /*json: 
-        {
-        "nome": "NomeLivro",
-        "autor": "AutorLivro",
-        "categoria": "CategoriaLivro"
-        }
-
-        */
         livro.setId(proximoId++);
-        livros.add(livro);
         livro.setDataEmprestimo(LocalDate.now());
-        return "livro cadastrado com sucesso! \n" + livro.getNome() + " - Categoria: " + livro.getCategoria();
+        livros.add(livro);
+        return "livro cadastrado com sucesso! \n" + livro.getNome() + " - categoria: " + livro.getCategoria();
     }
 
-    // ROTA: PUT http://localhost:8080/atualizar/{id}
-    @PutMapping("/atualizar/{id}")
+    /*
+    json teste
+
+    {
+        "nome": "Livro1",
+        "autor": "Autor1",
+        "categoria": "Categoria1"
+    }
+    */
+
+    // ROTA: PUT http://localhost:9090/livros/{id}
+    @PutMapping("/{id}")
     public String atualizarlivro(@PathVariable Long id, @RequestBody Livro livroAtualizado) {
-        for (Livro p : livros) {
-            if (p.getId() == id) {
-                p.setNome(livroAtualizado.getNome());
-                p.setCategoria(livroAtualizado.getCategoria());
-                p.setDataEmprestimo(livroAtualizado.getDataEmprestimo());
+        for (Livro l : livros) {
+            if (l.getId().equals(id)) {
+                l.setNome(livroAtualizado.getNome());
+                l.setAutor(livroAtualizado.getAutor());
+                l.setCategoria(livroAtualizado.getCategoria());
+                l.setDataEmprestimo(livroAtualizado.getDataEmprestimo());
+                l.setDataDevolucao(livroAtualizado.getDataDevolucao());
                 return "livro atualizado com sucesso!";
             }
         }
         return "livro não encontrado!";
     }
 
-    // ROTA: PUT http://localhost:8080/devolucao/{id}
-    @PutMapping("/devolucao/{id}")
-    public String atualizarDevolução(@PathVariable Long id, @RequestBody Livro livroAtualizado) {
-        for (Livro p : livros) {
-            if (p.getId() == id) {
-                p.setDataDevolucao(LocalDate.now());
-                return "devolução atualizada com sucesso!";
-            }
-        }
-        return "livro não encontrado!";
-    }
+    /*
+    json teste
 
-    // ROTA: DELETE http://localhost:8080/deletar/{id}
-    @DeleteMapping("/deletar/{id}")
+    {
+        "nome": "Livro1",
+        "autor": "Autor1",
+        "categoria": "Categoria1",
+        "dataEmprestimo": "2026-05-27",
+        "dataDevolucao": "2026-06-03"
+    }
+    */
+
+    // ROTA: DELETE http://localhost:9090/livros/{id}
+    @DeleteMapping("/{id}")
     public String deletarlivro(@PathVariable Long id) {
-        for (Livro p : livros) {
-            if (p.getId() == id) {
-                livros.remove(p);
+        for (Livro l : livros) {
+            if (l.getId().equals(id)) {
+                livros.remove(l);
                 return "livro removido com sucesso!";
             }
         }

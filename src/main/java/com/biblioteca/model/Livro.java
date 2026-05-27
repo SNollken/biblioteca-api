@@ -2,18 +2,18 @@ package com.biblioteca.model;
 
 public class Livro {
 
-    private long id;
+    private Long id;
     private String nome;
     private String autor;
     private String categoria;
     private java.time.LocalDate dataEmprestimo;
     private java.time.LocalDate dataDevolucao;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -56,6 +56,4 @@ public class Livro {
     public void setDataDevolucao(java.time.LocalDate dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
-
-
 }

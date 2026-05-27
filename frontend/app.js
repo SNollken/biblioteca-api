@@ -2,8 +2,8 @@ const STORAGE_KEY = "biblioteca_front_v1";
 const MAX_HISTORY_ITEMS = 8;
 
 const USER = {
-  name: "Sofia",
-  email: "soso.novaes@gmail.com"
+  name: "aquele cara",
+  email: "google@gmail.com"
 };
 
 const initialState = {
