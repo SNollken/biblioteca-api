@@ -6,6 +6,7 @@ public class Livro {
     private String nome;
     private String autor;
     private String categoria;
+    private boolean emprestado;
     private java.time.LocalDate dataEmprestimo;
     private java.time.LocalDate dataDevolucao;
 
@@ -39,6 +40,14 @@ public class Livro {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public boolean isEmprestado() {
+        return emprestado;
+    }
+
+    public void setEmprestado(boolean emprestado) {
+        this.emprestado = emprestado;
     }
 
     public java.time.LocalDate getDataEmprestimo() {
