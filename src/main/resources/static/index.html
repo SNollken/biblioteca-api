@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biblioteca Clássica</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+
+<body>
+  <div class="page-frame">
+    <header class="topbar">
+      <div class="header-top">
+        <div class="brand-block">
+          <div class="brand-mark">
+            <img src="assets/logo-biblioteca.png" alt="Logo da biblioteca">
+          </div>
+
+          <div>
+            <h1>Biblioteca Clássica Municipal</h1>
+
+          </div>
+        </div>
+      </div>
+
+      <p>ㅤ</p>
+      <p>ㅤ</p>
+      <p>ㅤ</p>
+
+      <div class="hero-content">
+
+
+        <h2 class="hero-title">
+          Encontre, empreste e acompanhe seus livros.
+        </h2>
+      </div>
+
+      <p>ㅤ</p>
+      <p>ㅤ</p>
+      <p>ㅤ</p>
+
+
+    </header>
+
+    <main>
+      <section id="home-view" class="panel">
+        <h2>Categorias</h2>
+
+
+        <div id="categories-grid" class="grid-3x2"></div>
+
+        <section class="history-wrap">
+          <article class="history-card">
+            <h3>Últimos livros emprestados</h3>
+            <ul id="loan-history" class="history-list"></ul>
+          </article>
+
+          <article class="history-card">
+            <h3>Últimos livros devolvidos</h3>
+            <ul id="return-history" class="history-list"></ul>
+          </article>
+        </section>
+      </section>
+
+      <section id="category-view" class="panel hidden">
+        <div class="category-head">
+          <button id="back-btn" class="btn">← Voltar</button>
+          <h2 id="category-title">Categoria</h2>
+        </div>
+
+
+        <form id="book-form" class="book-form">
+          <input id="book-title-input" type="text" placeholder="Título do livro" required />
+
+          <input id="book-author-input" type="text" placeholder="Autor do livro" required />
+
+          <button id="save-book-btn" class="btn" type="submit">
+            Adicionar livro
+          </button>
+
+          <button id="cancel-edit-btn" class="btn secondary hidden" type="button">
+            Cancelar edição
+          </button>
+        </form>
+
+        <ul id="book-list" class="book-list"></ul>
+      </section>
+    </main>
+
+
+  </div>
+
+  <div id="delete-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <h3>Excluir livro</h3>
+
+      <p id="delete-modal-text">
+        Tem certeza que deseja excluir este livro?
+      </p>
+
+      <div class="modal-actions">
+        <button id="cancel-delete-btn" class="btn secondary" type="button">
+          Cancelar
+        </button>
+
+        <button id="confirm-delete-btn" class="btn delete" type="button">
+          Excluir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
