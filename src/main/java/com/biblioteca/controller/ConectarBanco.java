@@ -39,6 +39,13 @@ public class ConectarBanco {
         return livro;
     }
 
+    public boolean atualizar(Long id, Livro livro) {
+        return jdbc.update(
+            "UPDATE livros SET nome = ?, autor = ?, categoria = ? WHERE id = ?",
+            livro.getNome(), livro.getAutor(), livro.getCategoria(), id
+        ) > 0;
+    }
+
     public boolean deletar(Long id) {
         return jdbc.update("DELETE FROM livros WHERE id = ?", id) > 0;
     }

@@ -61,7 +61,9 @@ let history = { loaned: [], returned: [] };
 async function loadBooks() {
   try {
     const res = await fetch(API);
-    livros = await res.json();
+    if (!res.ok) throw new Error(`Erro ${res.status} ao carregar livros`);
+    const data = await res.json();
+    livros = Array.isArray(data) ? data : [];
   } catch (err) {
     console.error("Erro ao carregar livros:", err);
     livros = [];
@@ -70,16 +72,28 @@ async function loadBooks() {
 }
 
 async function apiAddBook(nome, autor, categoria) {
-  await fetch(API, {
+  const res = await fetch(API, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nome, autor, categoria })
   });
+  if (!res.ok) throw new Error(`Erro ${res.status} ao adicionar livro`);
+  await loadBooks();
+}
+
+async function apiUpdateBook(id, nome, autor, categoria) {
+  const res = await fetch(`${API}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nome, autor, categoria })
+  });
+  if (!res.ok) throw new Error(`Erro ${res.status} ao atualizar livro`);
   await loadBooks();
 }
 
 async function apiDeleteBook(id) {
-  await fetch(`${API}/${id}`, { method: "DELETE" });
+  const res = await fetch(`${API}/${id}`, { method: "DELETE" });
+  if (!res.ok) throw new Error(`Erro ${res.status} ao excluir livro`);
   await loadBooks();
 }
 
@@ -95,7 +109,7 @@ function getSelectedCategory() {
 
 function clearBookForm() {
   if (bookTitleInput) bookTitleInput.value = "";
-  if (bookAuthorInput) bookTitleInput.value = "";
+  if (bookAuthorInput) bookAuthorInput.value = "";
   if (saveBookBtn) saveBookBtn.textContent = "Adicionar livro";
   if (cancelEditBtn) cancelEditBtn.classList.add("hidden");
   editingBookId = null;
@@ -134,7 +148,11 @@ async function handleBookSubmit(event) {
     return;
   }
 
-  await apiAddBook(title, author, category.name);
+  if (editingBookId) {
+    await apiUpdateBook(editingBookId, title, author, category.name);
+  } else {
+    await apiAddBook(title, author, category.name);
+  }
   clearBookForm();
 }
 
